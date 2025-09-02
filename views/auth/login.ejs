@@ -1,0 +1,19 @@
+<%- include('../components/header.ejs') %>
+
+<div class="container">
+    <h1>Iniciar Sesión</h1>
+    <form action="" method="POST">
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+        <p>¿No tienes una cuenta? <a href="/views/auth/register.ejs">Regístrate aquí</a></p>
+    </form>
+</div>
+
+<%- include('../components/footer.ejs') %>

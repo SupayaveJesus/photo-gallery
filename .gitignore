@@ -1,0 +1,7 @@
+node_modules/
+database.sqlite
+.env
+public/css/*.map
+public/js/*.map
+.DS_Store
+*.log
