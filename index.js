@@ -4,7 +4,7 @@ const express = require('express');
 const session = require('express-session');
 const db = require('./models');
 const bodyParser = require("body-parser");
-const registerController = require('./controller/register');
+const registerController = require('./controller/auth');
 
 const app = express();
 const port = 3000;
@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
   res.send('Bienvenido a la galería de fotos!');
 });
 
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 //configuracion de session
 app.use(session({
@@ -30,9 +30,7 @@ db.sequelize.sync({
 });
 
 
-app.get('/register', registerController.getRegister);
-app.post('/register', registerController.postRegister);
-
+require('./routes')(app);
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
