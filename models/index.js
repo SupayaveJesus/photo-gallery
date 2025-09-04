@@ -5,8 +5,11 @@ const sequelize = new Sequelize({
 });
 
 const User = require('./user')(sequelize);
+const Photo = require('./photos')(sequelize);
+
 
 module.exports = {
   sequelize,
-  User
+  User,
+  Photo
 };

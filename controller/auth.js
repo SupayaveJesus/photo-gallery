@@ -39,8 +39,11 @@ exports.postLogin = async (req, res) => {
             res.render('auth/login', { error: 'Email o contraseña incorrectos' });
             return;
         }
-        // Guardar usuario en sesión (ajusta según tu sistema de sesiones)
-        req.session.user = user;
+        req.session.user = {
+            id: user.id,
+            name: user.nombre_completo,
+            email: user.email
+        };
         res.redirect('/');
     } catch (error) {
         console.error('Error al iniciar sesión:', error);
@@ -48,3 +51,13 @@ exports.postLogin = async (req, res) => {
     }
 };
 
+exports.logout = (req, res) => {
+    req.session.destroy(err => {
+        if (err) {
+            console.error('Error al cerrar sesión:', err);
+            res.status(500).send('Error al cerrar sesión');
+            return;
+        }
+        res.redirect('/login');
+    });
+};

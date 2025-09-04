@@ -9,5 +9,7 @@ module.exports = app => {
 	router.get('/login', controller.getLogin);
 	router.post('/login', controller.postLogin);
 
+	router.get('/logout', controller.logout);
+
 	app.use('/', router);
 };

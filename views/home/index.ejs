@@ -1,6 +1,30 @@
 <%- include('../components/header.ejs') %>
-<div class="container mt-5 d-flex flex-column align-items-center justify-content-center" style="min-height: 60vh;">
+<div class="container mt-5">
+  <% if (userName) { %>
+    <h2 class="text-center">Hola, <%= userName %>!</h2>
+  <% } %>
   <h1 class="text-center">Bienvenido a la Galería de Fotos</h1>
   <p class="text-center">Explora, sube y comparte tus mejores momentos.</p>
+
+  <hr>
+  <h3 class="mt-4">Tus fotos</h3>
+  <div class="row">
+    <% if (photos && photos.length > 0) { %>
+      <% photos.forEach(function(photo) { %>
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <img src="<%= photo.url %>" class="card-img-top" alt="<%= photo.title %>">
+            <div class="card-body">
+              <h5 class="card-title"><%= photo.title %></h5>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    <% } else { %>
+      <div class="col-12">
+        <p class="text-center">No tienes fotos subidas aún.</p>
+      </div>
+    <% } %>
+  </div>
 </div>
 <%- include('../components/footer.ejs') %>

@@ -1,0 +1,16 @@
+<% include('../components/header.ejs') %>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Subir Foto</h1>
+        <form action="" method="POST" enctype="multipart/form-data" class="d-flex flex-column align-items-center">
+            <div class="mb-3 w-50">
+                    <label for="title" class="form-label">Título de la Foto</label>
+                    <input type="text" class="form-control" id="title" name="title" required>
+            </div>
+            <div class="mb-3 w-50">
+                <label for="photo" class="form-label">Archivo de la Foto</label>
+                <input type="file" class="form-control" id="photo" name="photo" accept="image/*" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Subir Foto</button>
+        </form>
+    </div>
+<%- include('../components/footer.ejs') %>
