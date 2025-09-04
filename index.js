@@ -12,9 +12,7 @@ const port = 3000;
 app.set("view engine", "ejs");
 app.use(express.static('public'));
 
-app.get('/', (req, res) => {
-  res.send('Bienvenido a la galería de fotos!');
-});
+// ...la ruta '/' ahora se gestiona en routes/home.js y controller/home.js
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -31,6 +29,7 @@ db.sequelize.sync({
 
 
 require('./routes')(app);
+
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
