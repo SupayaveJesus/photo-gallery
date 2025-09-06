@@ -26,5 +26,26 @@
       </div>
     <% } %>
   </div>
+
+  <hr>
+  <h3 class="mt-4">Tus álbumes</h3>
+  <div class="row">
+    <% if (albums && albums.length > 0) { %>
+      <% albums.forEach(function(album) { %>
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"><%= album.title %></h5>
+              <a href="/albums/<%= album.id %>" class="btn btn-primary">Ver álbum</a>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    <% } else { %>
+      <div class="col-12">
+        <p class="text-center">No tienes álbumes creados aún.</p>
+      </div>
+    <% } %>
+  </div>
 </div>
 <%- include('../components/footer.ejs') %>

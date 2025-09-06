@@ -1,0 +1,28 @@
+<%- include('../components/header.ejs', { title: 'Mis Álbumes' }) %>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Mis Álbumes</h1>
+    <% if (albums && albums.length > 0) { %>
+        <div class="row">
+            <% albums.forEach(function(album) { %>
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= album.title %></h5>
+                            <a href="/albums/<%= album.id %>" class="btn btn-primary">Ver álbum</a>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+        <div class="text-center mt-4">
+            <a href="/albums/create" class="btn btn-success">Crear nuevo álbum</a>
+        </div>
+    <% } else { %>
+        <div class="alert alert-info text-center mt-5" role="alert">
+            <h4 class="alert-heading">¡No tienes álbumes aún!</h4>
+            <p>Crea tu primer álbum para empezar a organizar tus fotos.</p>
+            <a href="/albums/create" class="btn btn-success mt-3">Crear álbum</a>
+        </div>
+    <% } %>
+</div>
+<%- include('../components/footer.ejs') %>

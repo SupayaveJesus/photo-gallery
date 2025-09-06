@@ -5,17 +5,22 @@ exports.getHome = async (req, res) => {
 		const photos = await db.Photo.findAll({
 			where: { userId: req.session.user.id }
 		});
+		const albums = await db.Album.findAll({
+			where: { userId: req.session.user.id }
+		});
 		res.render('home/index', {
 			userName: req.local.userName,
 			userEmail: req.local.userEmail,
-			photos
+			photos,
+			albums
 		});
 	} catch (error) {
-		console.error('Error al cargar las fotos:', error);
+		console.error('Error al cargar las fotos o álbumes:', error);
 		res.render('home/index', {
 			userName: req.local.userName,
 			userEmail: req.local.userEmail,
-			photos: []
+			photos: [],
+			albums: []
 		});
 	}
 };

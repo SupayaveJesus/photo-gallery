@@ -12,8 +12,13 @@ exports.postUploadPhoto = async (req, res) => {
         if (!req.files || !req.files.photo) {
             return res.status(400).send('No se subió ninguna foto');
         }
+
         const photoFile = req.files.photo;
-        const fileName = Date.now() + '_' + photoFile.name.replace(/\s+/g, '_');
+        // Solo el nombre del usuario como nombre de archivo
+        // Limpiar el nombre para evitar caracteres problemáticos
+        const userName = req.session.user.name.replace(/[^a-zA-Z0-9_-]/g, '');
+        const extension = path.extname(photoFile.name);
+        const fileName = userName + extension;
         const uploadPath = path.join(__dirname, '../public/uploads/', fileName);
 
         await photoFile.mv(uploadPath);

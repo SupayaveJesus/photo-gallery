@@ -1,0 +1,14 @@
+<%- include('../components/header.ejs', { title: 'Crear Nuevo Álbum' }) %>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Crear Nuevo Álbum</h1>
+        <form action="" method="POST" class="d-flex flex-column align-items-center">
+            <div class="mb-3 w-50">
+                <label for="title" class="form-label">Nombre del Álbum</label>
+                <input type="text" class="form-control" id="title" name="title" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Crear Álbum</button>
+        </form>
+    </div>
+
+<%- include('../components/footer.ejs') %>
