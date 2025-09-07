@@ -7,7 +7,6 @@
         <% } else { %>
             <img src="/img/default.jpg" alt="Sin portada" class="img-fluid rounded" style="max-height: 300px;">
         <% } %>
-        <!-- Formulario para cambiar la portada del álbum -->
         <form action="/albums/<%= album.id %>/change-cover" method="POST" class="mt-3 d-inline-block">
             <div class="input-group">
                 <select name="coverPhotoId" class="form-select" required>
@@ -28,7 +27,6 @@
                         <img src="<%= photo.url %>" class="card-img-top" alt="<%= photo.title %>">
                         <div class="card-body">
                             <h5 class="card-title"><%= photo.title %></h5>
-                            <!-- Botón para quitar foto del álbum -->
                             <form action="/albums/<%= album.id %>/remove-photo/<%= photo.id %>" method="POST" class="mt-2">
                                 <button type="submit" class="btn btn-danger btn-sm">Quitar del álbum</button>
                             </form>
@@ -44,13 +42,11 @@
         </div>
     <% } %>
 
-    <!-- Sección para añadir fotos al álbum -->
     <div class="mt-5">
         <h3 class="mb-3">Tus fotos disponibles para añadir</h3>
         <div class="row">
             <% if (userPhotos && userPhotos.length > 0) { %>
                 <% userPhotos.forEach(function(photo) { if (photo && typeof photo.id !== 'undefined') { %>
-                    <!-- Solo mostrar si la foto no está ya en el álbum -->
                     <% if (!photos.some(p => p && p.id === photo.id)) { %>
                         <div class="col-md-3 mb-3">
                             <div class="card">
