@@ -23,7 +23,9 @@ app.use(fileUpload({
 
 //configuracion de session
 app.use(session({
-    secret: 'esta es la clave de encriptación de la sesión y puede ser cualquier texto'
+    secret: 'esta es la clave de encriptación de la sesión y puede ser cualquier texto',
+    resave: false,
+    saveUninitialized: false
 }))
 
 db.sequelize.sync({

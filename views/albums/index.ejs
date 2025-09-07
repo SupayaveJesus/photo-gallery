@@ -6,6 +6,9 @@
             <% albums.forEach(function(album) { %>
                 <div class="col-md-4 mb-3">
                     <div class="card">
+                        <% if (album.coverPhoto) { %>
+                            <img src="<%= album.coverPhoto.url %>" class="card-img-top" alt="Portada del álbum">
+                        <% } %>
                         <div class="card-body">
                             <h5 class="card-title"><%= album.title %></h5>
                             <a href="/albums/<%= album.id %>" class="btn btn-primary">Ver álbum</a>

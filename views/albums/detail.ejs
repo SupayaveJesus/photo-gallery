@@ -1,0 +1,77 @@
+<%- include('../components/header.ejs', { title: 'detalle del álbum' }) %>
+<div class="container mt-5">
+    <h1 class="text-center mb-4"><%= album.title %></h1>
+    <div class="text-center mb-4">
+        <% if (album.coverPhoto && album.coverPhoto.url) { %>
+            <img src="<%= album.coverPhoto.url %>" alt="Portada del álbum" class="img-fluid rounded" style="max-height: 300px;">
+        <% } else { %>
+            <img src="/img/default.jpg" alt="Sin portada" class="img-fluid rounded" style="max-height: 300px;">
+        <% } %>
+        <!-- Formulario para cambiar la portada del álbum -->
+        <form action="/albums/<%= album.id %>/change-cover" method="POST" class="mt-3 d-inline-block">
+            <div class="input-group">
+                <select name="coverPhotoId" class="form-select" required>
+                    <option value="">Selecciona nueva portada</option>
+                    <% photos.forEach(function(photo) { if (photo && typeof photo.id !== 'undefined') { %>
+                        <option value="<%= photo.id %>" <%= album.coverPhoto && album.coverPhoto.id === photo.id ? 'selected' : '' %>><%= photo.title %></option>
+                    <% }}); %>
+                </select>
+                <button type="submit" class="btn btn-warning">Cambiar portada</button>
+            </div>
+        </form>
+    </div>
+    <% if (photos && photos.length > 0) { %>
+        <div class="row">
+            <% photos.forEach(function(photo) { if (photo && typeof photo.id !== 'undefined') { %>
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <img src="<%= photo.url %>" class="card-img-top" alt="<%= photo.title %>">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= photo.title %></h5>
+                            <!-- Botón para quitar foto del álbum -->
+                            <form action="/albums/<%= album.id %>/remove-photo/<%= photo.id %>" method="POST" class="mt-2">
+                                <button type="submit" class="btn btn-danger btn-sm">Quitar del álbum</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            <% }}); %>
+        </div>
+    <% } else { %>
+        <div class="alert alert-info text-center mt-5" role="alert">
+            <h4 class="alert-heading">¡No hay fotos en este álbum!</h4>
+            <p>Sube fotos para empezar a llenar tu álbum.</p>
+        </div>
+    <% } %>
+
+    <!-- Sección para añadir fotos al álbum -->
+    <div class="mt-5">
+        <h3 class="mb-3">Tus fotos disponibles para añadir</h3>
+        <div class="row">
+            <% if (userPhotos && userPhotos.length > 0) { %>
+                <% userPhotos.forEach(function(photo) { if (photo && typeof photo.id !== 'undefined') { %>
+                    <!-- Solo mostrar si la foto no está ya en el álbum -->
+                    <% if (!photos.some(p => p && p.id === photo.id)) { %>
+                        <div class="col-md-3 mb-3">
+                            <div class="card">
+                                <img src="<%= photo.url %>" class="card-img-top" alt="<%= photo.title %>">
+                                <div class="card-body">
+                                    <h6 class="card-title"><%= photo.title %></h6>
+                                    <form action="/albums/<%= album.id %>/add-photo" method="POST">
+                                        <input type="hidden" name="photoId" value="<%= photo.id %>">
+                                        <button type="submit" class="btn btn-success btn-sm">Añadir al álbum</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %>
+                <% }}); %>
+            <% } else { %>
+                <div class="col-12">
+                    <div class="alert alert-warning">No tienes fotos disponibles para añadir.</div>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</div>
+<%- include('../components/footer.ejs') %>

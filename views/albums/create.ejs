@@ -6,6 +6,15 @@
                 <label for="title" class="form-label">Nombre del Álbum</label>
                 <input type="text" class="form-control" id="title" name="title" required>
             </div>
+            <div class="mb-3 w-50">
+                <label for="coverPhoto" class="form-label">Foto de Portada</label>
+                <select class="form-select" id="coverPhoto" name="coverPhoto">
+                    <option value="">Seleccionar Foto</option>
+                    <% photos.forEach(photo => { %>
+                        <option value="<%= photo.id %>"><%= photo.title %></option>
+                    <% }); %>
+                </select>
+            </div>
 
             <button type="submit" class="btn btn-primary">Crear Álbum</button>
         </form>

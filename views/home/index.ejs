@@ -12,10 +12,13 @@
     <% if (photos && photos.length > 0) { %>
       <% photos.forEach(function(photo) { %>
         <div class="col-md-4 mb-4">
-          <div class="card">
-            <img src="<%= photo.url %>" class="card-img-top" alt="<%= photo.title %>">
+          <div class="card h-100 d-flex flex-column justify-content-between">
+            <a href="/photos/<%= photo.id %>">
+              <img src="<%= photo.url %>" class="card-img-top" alt="<%= photo.title %>" style="height: 200px; object-fit: cover;">
+            </a>
             <div class="card-body">
-              <h5 class="card-title"><%= photo.title %></h5>
+              <h5 class="card-title text-truncate" style="max-width: 100%"><%= photo.title %></h5>
+              <a href="/photos/<%= photo.id %>" class="btn btn-info mt-2">Ver foto</a>
             </div>
           </div>
         </div>
@@ -34,6 +37,11 @@
       <% albums.forEach(function(album) { %>
         <div class="col-md-4 mb-4">
           <div class="card">
+            <% if (album.coverPhoto && album.coverPhoto.url) { %>
+              <img src="<%= album.coverPhoto.url %>" class="card-img-top" alt="Portada del álbum" style="max-height: 200px; object-fit: cover;">
+            <% } else { %>
+              <img src="/img/default.jpg" class="card-img-top" alt="Sin portada" style="max-height: 200px; object-fit: cover;">
+            <% } %>
             <div class="card-body">
               <h5 class="card-title"><%= album.title %></h5>
               <a href="/albums/<%= album.id %>" class="btn btn-primary">Ver álbum</a>

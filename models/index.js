@@ -14,15 +14,12 @@ User.hasMany(Photo, { foreignKey: 'userId' });
 // Una foto pertenece a un usuario
 Photo.belongsTo(User, { foreignKey: 'userId' });
 
-// Ejemplo de uso en un controlador:
-//
-// // Obtener todas las fotos de un usuario:
-// const user = await db.User.findByPk(req.session.user.id, { include: db.Photo });
-// const photos = user.Photos;
-//
-// // Obtener el usuario de una foto:
-// const photo = await db.Photo.findByPk(photoId, { include: db.User });
-// const user = photo.User;
+// album pertenece a una foto como portada
+Album.belongsTo(Photo, {  foreignKey: 'coverId' , as: 'coverPhoto'});
+
+//muchos a muchos entre album y photo
+Album.belongsToMany(Photo, {  through: 'AlbumPhoto' , as: 'photos'});
+Photo.belongsToMany(Album, {  through: 'AlbumPhoto' , as: 'albums'});
 
 module.exports = {
   sequelize,

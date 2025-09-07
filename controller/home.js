@@ -6,7 +6,8 @@ exports.getHome = async (req, res) => {
 			where: { userId: req.session.user.id }
 		});
 		const albums = await db.Album.findAll({
-			where: { userId: req.session.user.id }
+			where: { userId: req.session.user.id },
+			include: [{ model: db.Photo, as: 'coverPhoto' }]
 		});
 		res.render('home/index', {
 			userName: req.local.userName,
