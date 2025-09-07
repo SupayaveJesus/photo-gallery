@@ -1,5 +1,4 @@
 const { DataTypes } = require('sequelize');
-const user = require('./user');
 
 module.exports = function (sequelize) {
     const Photo = sequelize.define(

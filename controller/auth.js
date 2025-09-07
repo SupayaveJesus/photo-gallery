@@ -1,7 +1,5 @@
-const { where } = require('sequelize');
 const db = require('../models')
 const sha1 = require('sha1');
-const user = require('../models/user');
 
 exports.getRegister = (req, res) => {
     res.render("auth/register", { error: null });
@@ -64,8 +62,9 @@ exports.logout = (req, res) => {
     });
 };
 
+// Obtener fotos del usuario
 exports.getUserPhotos = async (userId) => {
     return await db.Photo.findAll({
-        where : {userId}   
+        where: { userId }
     });
 }

@@ -71,6 +71,8 @@ exports.postCreateAlbum = async (req, res) => {
 }
 
 exports.getAlbumDetails = async (req, res) => {
+    const authController = require('./auth');
+    const userPhotos = await authController.getUserPhotos(req.session.user.id);
     try {
         const albumId = req.params.id;
         const album = await db.Album.findByPk(albumId, {
@@ -90,11 +92,6 @@ exports.getAlbumDetails = async (req, res) => {
             : [];
         // Asegura que coverPhoto sea null si no existe
         album.coverPhoto = album.coverPhoto && album.coverPhoto.id ? album.coverPhoto : null;
-
-        // Importa el controlador de usuario
-        const authController = require('./auth');
-        // Obtiene todas las fotos del usuario
-        const userPhotos = await authController.getUserPhotos(req.session.user.id);
 
         res.render('albums/detail', {
             album,
