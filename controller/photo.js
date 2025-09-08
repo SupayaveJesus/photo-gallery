@@ -1,7 +1,6 @@
 const path = require('path');
 const db = require('../models');
 
-// Vista de detalle de foto
 exports.getPhotoDetail = async (req, res) => {
     try {
         const photoId = req.params.id;
@@ -11,14 +10,12 @@ exports.getPhotoDetail = async (req, res) => {
         if (!photo) {
             return res.redirect('/');
         }
-        // Obtener todos los álbumes del usuario
         const userAlbums = await db.Album.findAll({ where: { userId: req.session.user.id } });
         res.render('photos/detail', {
             photo,
             albums: photo.albums || [],
             userAlbums,
-            userEmail: req.session.user.email,
-            userName: req.session.user.name
+            
         });
     } catch (error) {
         console.error('Error al cargar el detalle de la foto:', error);
@@ -26,7 +23,6 @@ exports.getPhotoDetail = async (req, res) => {
     }
 };
 
-// Añadir foto a álbum desde detalle de foto
 exports.addPhotoToAlbumFromDetail = async (req, res) => {
     try {
         const photoId = req.params.id;
@@ -42,7 +38,6 @@ exports.addPhotoToAlbumFromDetail = async (req, res) => {
     }
 };
 
-// Quitar foto de álbum desde detalle de foto
 exports.removePhotoFromAlbumFromDetail = async (req, res) => {
     try {
         const photoId = req.params.id;
@@ -58,7 +53,6 @@ exports.removePhotoFromAlbumFromDetail = async (req, res) => {
     }
 };
 
-// Eliminar foto (y su relación con álbumes)
 exports.deletePhoto = async (req, res) => {
     try {
         const photoId = req.params.id;
@@ -90,6 +84,7 @@ exports.postUploadPhoto = async (req, res) => {
         const photoFile = req.files.photo;
         const userName = req.session.user.name.replace(/[^a-zA-Z0-9_-]/g, '');
         const extension = path.extname(photoFile.name);
+
         // Genera un nombre único usando timestamp
         const fileName = `${userName}_${Date.now()}${extension}`;
         const uploadsDir = path.join(__dirname, '..', 'public', 'uploads');
@@ -117,7 +112,6 @@ exports.postUploadPhoto = async (req, res) => {
     }
 };
 
-// Cambiar portada del álbum
 exports.postChangeCover = async (req, res) => {
     try {
         const albumId = req.params.id;

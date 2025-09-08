@@ -4,9 +4,8 @@
         <div class="col-md-8 text-center">
             <h2><%= photo.title %></h2>
             <img src="<%= photo.url %>" alt="<%= photo.title %>" class="img-fluid rounded mb-4" style="max-height: 500px;">
-            <p>Subida por: <%= userName %> (<%= userEmail %>)</p>
             <hr>
-            <h4>Álbumes donde está esta foto:</h4>
+            <h4>Álbumnes donde aparece esta foto:</h4>
             <ul class="list-group mb-3">
                 <% if (albums && albums.length > 0) { %>
                     <% albums.forEach(function(album) { %>

@@ -62,7 +62,6 @@ exports.logout = (req, res) => {
     });
 };
 
-// Obtener fotos del usuario
 exports.getUserPhotos = async (userId) => {
     return await db.Photo.findAll({
         where: { userId }
